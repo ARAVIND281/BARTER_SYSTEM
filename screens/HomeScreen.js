@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, FlatList,TouchableOpacity } from 'react-native';
 import { ListItem } from 'react-native-elements'
 import MyHeader from '../components/MyHeader';
-
+import firebase from 'firebase';
 import db from '../config'
 
 export default class HomeScreen extends Component{
@@ -28,7 +28,6 @@ export default class HomeScreen extends Component{
   keyExtractor = (item, index) => index.toString()
 
   renderItem = ( {item, i} ) =>{
-    
     return (
       <ListItem
         key={i}
@@ -36,8 +35,11 @@ export default class HomeScreen extends Component{
         subtitle={item.description}
         titleStyle={{ color: 'black', fontWeight: 'bold' }}
         rightElement={
-            <TouchableOpacity style={styles.button}>
-              <Text style={{color:'#ffff'}}>Exchange</Text>
+            <TouchableOpacity style={styles.button}
+            onPress ={()=>{
+               this.props.navigation.navigate("ReceiverDetails",{"details": item})
+             ;console.log("this are items ",item.username)}}>
+              <Text style={{color:'#ffff'}}>View</Text>
             </TouchableOpacity>
           }
         bottomDivider

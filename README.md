@@ -1,2 +1,2 @@
-# Barter - system
-BY ARAVIND
+# barter-app
+barter-app by Aravind
