@@ -15,18 +15,12 @@ export default class Exchange extends Component{
     }
   }
 
-  createUniqueId(){
-    return Math.random().toString(36).substring(7);
-  }
-
   addItem=(itemName, description)=>{
     var userName = this.state.userName
-    exchangeId = this.createUniqueId()
     db.collection("exchange_requests").add({
       "username"    : userName,
       "item_name"   : itemName,
-      "description" : description,
-      "exchangeId"  : exchangeId
+      "description" : description
      })
      this.setState({
        itemName : '',
@@ -38,13 +32,6 @@ export default class Exchange extends Component{
        description :''
      })
 
-     // NOTE: Comment below return statement when you test the app in ios
-     // ToastAndroid.showWithGravityAndOffset('Item ready to exchange',
-     //    ToastAndroid.SHORT,
-     //  );
-     // return this.props.navigation.navigate('HomeScreen')
-
-     // NOTE:  Comment the below return statement when you test the app in android
      return Alert.alert(
           'Item ready to exchange',
           '',
@@ -67,7 +54,7 @@ export default class Exchange extends Component{
         <TextInput
           style={styles.formTextInput}
           placeholder ={"Item Name"}
-          maxLength ={8}
+          maxLength ={20}
           onChangeText={(text)=>{
             this.setState({
               itemName: text

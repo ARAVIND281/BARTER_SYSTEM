@@ -1,6 +1,6 @@
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import { AppTabNavigator } from './AppTabNavigator'
-import SidebarMenu  from './SidebarMenu';
+import CustomSidebarMenu  from './CustomSidebarMenu';
 import MyBartersScreen from '../screens/MyBartersScreen';
 import SettingScreen from '../screens/SettingScreen';
 
@@ -16,7 +16,7 @@ export const AppDrawerNavigator = createDrawerNavigator({
     }
 },
   {
-    contentComponent:SidebarMenu
+    contentComponent:CustomSidebarMenu
   },
   {
     initialRouteName : 'Home'

@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "barter-app-stage-4",
-    "slug": "barter-app-stage-4",
+    "name": "barter-app-stage-3",
+    "slug": "barter-app-stage-3",
     "privacy": "public",
+    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",

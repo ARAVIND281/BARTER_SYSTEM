@@ -1,15 +1,15 @@
-import firebase from 'firebase'
+import firebase from 'firebase';
 require('@firebase/firestore')
 
-  var firebaseConfig = {
-    apiKey: "AIzaSyDfiQ87tXV4kWgYHWnDg3q3I0zs1hIDVvI",
-    authDomain: "book-santa-ccf95.firebaseapp.com",
-    databaseURL: "https://book-santa-ccf95.firebaseio.com",
-    projectId: "book-santa-ccf95",
-    storageBucket: "book-santa-ccf95.appspot.com",
-    messagingSenderId: "559024130826",
-    appId: "1:559024130826:web:680821161f751050ebc8f3"
-  };
+var firebaseConfig = {
+  apiKey: "AIzaSyARK_4zu_nxIJKrvAL48w8gU0xGjjRgj8M",
+  authDomain: "barter-system-3ced1.firebaseapp.com",
+  databaseURL: "https://barter-system-3ced1.firebaseio.com",
+  projectId: "barter-system-3ced1",
+  storageBucket: "barter-system-3ced1.appspot.com",
+  messagingSenderId: "345060742863",
+  appId: "1:345060742863:web:f16ec09189cbbaadedc9ba"
+};
 
   firebase.initializeApp(firebaseConfig);
 

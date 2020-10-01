@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component} from 'react';
 import { Header } from 'react-native-elements';
+import { View, Text, StyeSheet } from 'react-native';
 
 const MyHeader = props => {
   return (
