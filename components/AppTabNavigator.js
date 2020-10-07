@@ -16,7 +16,7 @@ export const AppTabNavigator = createBottomTabNavigator({
   BookRequest: {
     screen: Exchange,
     navigationOptions :{
-      tabBarIcon :<Image source={require("../assets/ads-icon.png")} style={{width:20, height:20,}} />,
+      tabBarIcon :<Image source={require("../assets/exchange-icon.png")} style={{width:20, height:20,}} />,
       tabBarLabel : "Exchange",
     }
   }

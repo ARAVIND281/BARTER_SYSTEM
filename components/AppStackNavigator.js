@@ -1,7 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from '../screens/HomeScreen';
-import ReceiverDetailsScreen  from '../screens/ReceiverDetailsScreen';
+import ReceiverDetailsScreen  from '../screens/RecieverDetailsScreen';
+import NotificationScreen from '../screens/NotificationsScreen'
 
 export const AppStackNavigator = createStackNavigator({
   BarterList : {
@@ -17,8 +18,15 @@ export const AppStackNavigator = createStackNavigator({
       headerShown : false
     }
   },
+  Notification : {
+     screen : NotificationScreen,
+     navigationOptions:{
+       headerShown : false
+     }
+   }
+ },
 
-},
+
   {
     initialRouteName: 'BarterList'
   }
