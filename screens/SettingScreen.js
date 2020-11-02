@@ -59,7 +59,7 @@ componentDidMount(){
         return(
 
               <View style={{flex:1, alignItems: 'center',justifyContent: 'center'}} >
-                <MyHeader title="Settings"/>
+                <MyHeader title="Settings" navigation ={this.props.navigation}/>
                 <View style={{flex:1,width:'100%',alignItems: 'center'}}>
                 <TextInput
                   style={styles.formTextInput}
