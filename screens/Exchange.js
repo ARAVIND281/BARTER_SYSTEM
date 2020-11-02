@@ -1,3 +1,4 @@
+  
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TextInput,KeyboardAvoidingView,TouchableOpacity,Alert, ToastAndroid } from 'react-native';
 import firebase from 'firebase';
@@ -15,7 +16,9 @@ export default class Exchange extends Component {
       requestedItemName:"",
       exchangeId:"",
       itemStatus:"",
-      docId: ""
+      docId: "",
+      itemValue:"",
+      currencyCode:""
 
     }
   }
@@ -25,14 +28,17 @@ export default class Exchange extends Component {
   }
 
   addItem= async(itemName, description)=>{
+
     var userName = this.state.userName
-    exchangeId = this.createUniqueId()
+    var exchangeId = this.createUniqueId()
+    console.log("im called",exchangeId);
     db.collection("exchange_requests").add({
       "username"    : userName,
       "item_name"   : itemName,
       "description" : description,
       "exchangeId"  : exchangeId,
       "item_status" : "requested",
+      "item_value"  : this.state.itemValue,
         "date"       : firebase.firestore.FieldValue.serverTimestamp()
 
      })
@@ -50,12 +56,11 @@ export default class Exchange extends Component {
 
      this.setState({
        itemName : '',
-       description :''
+       description :'',
+       itemValue : ""
      })
 
-
-
-         return Alert.alert(
+     return Alert.alert(
           'Item ready to exchange',
           '',
           [
@@ -75,7 +80,8 @@ export default class Exchange extends Component {
       querySnapshot.forEach(doc => {
         this.setState({
           IsExchangeRequestActive:doc.data().IsExchangeRequestActive,
-          userDocId : doc.id
+          userDocId : doc.id,
+          currencyCode: doc.data().currency_code
         })
       })
     })
@@ -92,6 +98,7 @@ export default class Exchange extends Component {
             exchangeId : doc.data().exchangeId,
             requestedItemName: doc.data().item_name,
             itemStatus:doc.data().item_status,
+            itemValue : doc.data().item_value,
             docId     : doc.id
           })
         }
@@ -99,14 +106,29 @@ export default class Exchange extends Component {
   })
 }
 
-  componentDidMount(){
-    this.getExchangeRequest()
-    this.getIsExchangeRequestActive()
-
+getData(){
+  fetch("http://data.fixer.io/api/latest?access_key=1f7dd48123a05ae588283b5e13fae944&format=1")
+  .then(response=>{
+    return response.json();
+  }).then(responseData =>{
+    var currencyCode = this.state.currencyCode
+    var currency = responseData.rates.INR
+    var value =  69 / currency
+    console.log(value);
+  })
   }
 
 
-  receivedItem=(bookName)=>{
+
+
+  componentDidMount(){
+    this.getExchangeRequest()
+    this.getIsExchangeRequestActive()
+    this.getData()
+  }
+
+
+  receivedItem=(itemName)=>{
     var userId = this.state.userName
     var exchangeId = this.state.exchangeId
     db.collection('received_items').add({
@@ -127,6 +149,7 @@ export default class Exchange extends Component {
     db.collection('users').where('username','==',this.state.userName).get()
     .then((snapshot)=>{
       snapshot.forEach((doc) => {
+        //updating the doc
         db.collection('users').doc(doc.id).update({
           IsExchangeRequestActive: false
         })
@@ -167,6 +190,11 @@ export default class Exchange extends Component {
          <View style={{borderColor:"orange",borderWidth:2,justifyContent:'center',alignItems:'center',padding:10,margin:10}}>
          <Text>Item Name</Text>
          <Text>{this.state.requestedItemName}</Text>
+         </View>
+         <View style={{borderColor:"orange",borderWidth:2,justifyContent:'center',alignItems:'center',padding:10,margin:10}}>
+         <Text> Item Value </Text>
+
+         <Text>{this.state.itemValue}</Text>
          </View>
          <View style={{borderColor:"orange",borderWidth:2,justifyContent:'center',alignItems:'center',padding:10,margin:10}}>
          <Text> Item Status </Text>
@@ -214,6 +242,17 @@ export default class Exchange extends Component {
             }}
             value={this.state.description}
 
+          />
+          <TextInput
+            style={styles.formTextInput}
+            placeholder ={"Item Value"}
+            maxLength ={8}
+            onChangeText={(text)=>{
+              this.setState({
+                itemValue: text
+              })
+            }}
+            value={this.state.itemValue}
           />
           <TouchableOpacity
             style={[styles.button,{marginTop:10}]}
