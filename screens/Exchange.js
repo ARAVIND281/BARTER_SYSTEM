@@ -149,7 +149,6 @@ getData(){
     db.collection('users').where('username','==',this.state.userName).get()
     .then((snapshot)=>{
       snapshot.forEach((doc) => {
-        //updating the doc
         db.collection('users').doc(doc.id).update({
           IsExchangeRequestActive: false
         })
