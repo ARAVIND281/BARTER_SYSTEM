@@ -28,17 +28,19 @@ export default class HomeScreen extends Component{
   keyExtractor = (item, index) => index.toString()
 
   renderItem = ( {item, i} ) =>{
+
     return (
       <ListItem
         key={i}
         title={item.item_name}
         subtitle={item.description}
+        description ={item.item_value}
         titleStyle={{ color: 'black', fontWeight: 'bold' }}
         rightElement={
             <TouchableOpacity style={styles.button}
             onPress ={()=>{
                this.props.navigation.navigate("ReceiverDetails",{"details": item})
-             ;console.log("this are items ",item.username)}}>
+             }}>
               <Text style={{color:'#ffff'}}>View</Text>
             </TouchableOpacity>
           }
@@ -58,7 +60,7 @@ export default class HomeScreen extends Component{
   render(){
     return(
       <View style={{flex:1}}>
-        <MyHeader title="Barter App"/>
+        <MyHeader title="Barter App" navigation ={this.props.navigation}/>
         <View style={{flex:1}}>
           {
             this.state.allRequests.length === 0
